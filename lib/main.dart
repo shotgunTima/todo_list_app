@@ -9,14 +9,19 @@ void main() => runApp(MaterialApp(
     ),
     appBarTheme: AppBarTheme(
       backgroundColor: Colors.blueGrey,
-      titleTextStyle: TextStyle(
-        fontFamily: 'Ubuntu',
-        fontSize: 25,
-      )
+    ),
+    
+    listTileTheme: ListTileThemeData(
+      
+      tileColor: const Color.fromARGB(255, 179, 206, 220),
+      shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10),
+),
+
     ),
     
 floatingActionButtonTheme: FloatingActionButtonThemeData(
-  backgroundColor: const Color.fromARGB(255, 211, 14, 0),
+  backgroundColor: Colors.blueGrey,
   iconSize: 25,
 
 )

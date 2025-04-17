@@ -10,53 +10,75 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
 List toDoList = [];
-late String usersDeal;
+String? usersDeal;
 
 @override
   void initState() {
     super.initState();
-
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('To Do List'),
+        title: Icon(
+          Icons.today_rounded,
+          color: Colors.white,
+          size: 45,
+          ),
         centerTitle: true,
       ),
 
-      body: ListView.builder(
-        itemCount: toDoList.length,
-        itemBuilder: (BuildContext context, int index){
-          return Dismissible(
-            key: Key(toDoList[index]), 
-            child: Card(
-              child: ListTile(
-                title: Text(toDoList[index],),
-                trailing: IconButton(
-                  icon: Icon(
-                    Icons.delete_sweep_rounded,
-                    ), 
-                  onPressed: () { 
-                    setState(() {
-                      toDoList.removeAt(index);
-                    });
-                   },),
+      body: Column(
+        children: [
+          Container(
+            
+            padding: EdgeInsets.fromLTRB(100, 50, 100, 50),
+            child: Text(
+              'Wish List',
+              style: TextStyle(
+                fontFamily: 'Ubuntu',
+                fontSize: 35,
+                color: Colors.black45,
+              
+              ),
+              ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: toDoList.length,
+              itemBuilder: (BuildContext context, int index){
+                return Dismissible(
+                  key: Key(toDoList[index]), 
+                  child: Card(
+                    child: ListTile(
+                      title: Text(toDoList[index],),
+                      trailing: IconButton(
+                        icon: Icon(
+                          Icons.delete_sweep_rounded,
+                          color: Colors.blueGrey,
+                          ), 
+                        onPressed: () { 
+                          setState(() {
+                            toDoList.removeAt(index);
+                          });
+                         },),
+                  ),
+                ),
+                
+                onDismissed: (direction) {
+                  setState(() {
+                    toDoList.removeAt(index);
+                  });
+                },
+            
+                );
+              },
+              
+            
             ),
           ),
-          
-          onDismissed: (direction) {
-            setState(() {
-              toDoList.removeAt(index);
-            });
-          },
-
-          );
-        },
-        
-
+        ],
       ),
 
       floatingActionButton: FloatingActionButton(
@@ -74,13 +96,14 @@ late String usersDeal;
 
               actions: [
                 ElevatedButton(
-                  onPressed: (){
-                    setState(() {
-                      toDoList.add(usersDeal);
-                    });
-
+                 onPressed: () {
+                    if (usersDeal != null && usersDeal!.trim().isNotEmpty) {
+                        setState(() {
+                           toDoList.add(usersDeal!);
+                         });
                     Navigator.of(context).pop();
-                }, 
+                     }
+                  },
                 child:Text('Add')
                 )
               ],
